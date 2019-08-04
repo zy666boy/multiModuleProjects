@@ -5,7 +5,7 @@
     <parent>
         <groupId>com.multilModule</groupId>
         <artifactId>parent</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.1.RELEASE</version>
     </parent>
     <!-- 基本信息 -->
     <groupId>com.multiModule</groupId>
@@ -16,10 +16,21 @@
     <description>Demo project for Spring Boot</description>
     <modelVersion>4.0.0</modelVersion>
     <!-- Web模块相关依赖 -->
+    <!--补充一个重要的知识点，一直以来都没意识到：依赖不写版本号的原因是parent标签继承的父项目依赖已经默认给出-->
     <dependencies>
-
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>        <!--不写版本号的原因是parent标签继承的父项目依赖dependencyManagement已经默认给出-->
+            <groupId>com.multiModule</groupId>
+            <artifactId>redisconfig</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
