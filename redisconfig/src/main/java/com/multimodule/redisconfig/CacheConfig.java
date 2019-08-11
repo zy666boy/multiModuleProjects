@@ -17,6 +17,7 @@ import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
@@ -24,7 +25,10 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+import java.time.Duration;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 缓存配置类
@@ -84,6 +88,16 @@ public class CacheConfig extends CachingConfigurerSupport {
         RedisCacheManager.RedisCacheManagerBuilder builder = RedisCacheManager
                 .RedisCacheManagerBuilder
                 .fromConnectionFactory(jedisConnectionFactory);
+        //添加缓存块
+        Set<String>cacheNames=new HashSet<String>();
+        cacheNames.add("cache1");
+        cacheNames.add("cache2");
+        cacheNames.add("cache3");
+        cacheNames.add("cache4");
+        builder.initialCacheNames(cacheNames);
+        //设置缓存过期时间(也可以通过RedisUtil指定某个key的缓存过期时间)
+        //defaultCacheConfig()返回的对象能设置许多缓存规则，Duration里有许多过期时间单位
+        builder.cacheDefaults(RedisCacheConfiguration.defaultCacheConfig().entryTtl(Duration.ofMinutes(5)));
         RedisCacheManager cacheManager=builder.build();
         return cacheManager;
     }

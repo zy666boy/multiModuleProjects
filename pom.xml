@@ -21,9 +21,25 @@
     <modules>
         <module>redisConfig</module>
         <module>application</module>
+        <module>springboot-swagger2</module>
     </modules>
     <!-- 版本说明：这里统一管理依赖的版本号 -->
     <!--补充一个重要的知识点，一直以来都没意识到：依赖不写版本号的原因是parent标签继承的父项目依赖已经默认给出-->
+    <!--dependencyManagement内的依赖无论是父模块还是子模块都不会被自动引入-->
+    <!-- 如果父项目pom中使用的是：
+     <dependencies>
+          ....
+     </dependencies>方式，
+     则子项目pom会自动使用pom中的jar包。
+     如果父项目pom使用
+     <dependencyManagement>
+         <dependencies>
+             ....
+         </dependencies>
+     </dependencyManagement>方式，
+     则子项目pom不会自动使用父pom中的jar包，如果需要父项目中的哪个jar包，就在子项目的dependencie中要给出groupId和artifactId，无需给出version。这样能解决哪些父项目的依赖是所有项目都想要继承的，和哪些依赖只是部分子项目想要继承的，并且还能统一管理这些部分项目所需要的依赖版本。如果不用<dependencyManagement>
+     这个方法，就需要在部分项目的pom里逐一添加某依赖，一旦依赖版本改变，那部分项目又都需全部改变，使用<dependencyManagement>之后只需要在父项目改变依赖版本即可。
+     还看不懂见：https://blog.csdn.net/qq_41254677/article/details/81011681,及helpsource-->
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -34,6 +50,11 @@
             <dependency>
                 <groupId>com.multiModule</groupId>
                 <artifactId>application</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+            <dependency>
+                <groupId>com.multiModule</groupId>
+                <artifactId>springboot-swagger2</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>

@@ -10,6 +10,7 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -17,6 +18,8 @@ import redis.clients.jedis.JedisPoolConfig;
  * redis相关配置类
  */
 @Configuration
+//application.properties或是application.yml当启动类启动时会自动加载，用@PropertySource是加载那些不能被自动加载或是没有在自动加载配置文件中
+//指定哪些被包含进来能被加载的配置文件。@PropertySource能配合@Value或是@ConfigurationProperties用
 @PropertySource("classpath:redis.properties")//此处本想用yml做redis的配置文件，但是这里引进不进去，又改成了properties文件了
 public class RedisConfig {
     @Value("${spring.redis.host}")
@@ -74,6 +77,7 @@ public class RedisConfig {
      * @param factory
      * @return
      */
+    //这里不知道为什么在用注解实现缓存时，并没有使用这个bean，所以不能解决在redis以json形式出现，而是字节码,但是RedisUtils用的是这个bean
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory factory) {//JedisConnectionFactory继承了RedisConnectionFactory
         //设置序列化

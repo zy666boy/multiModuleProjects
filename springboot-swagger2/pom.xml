@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<!-- 继承本项目的父工程 -->
+<parent>
+    <groupId>com.multilModule</groupId>
+    <artifactId>parent</artifactId>
+    <version>0.0.1.RELEASE</version>
+</parent>
+<!-- 基本信息 -->
+<groupId>com.multiModule</groupId>
+<artifactId>springboot-swagger2</artifactId>
+<version>0.0.1-SNAPSHOT</version>
+<name>springboot-swagger2</name>
+<packaging>jar</packaging>
+<description>Demo project for Spring Boot</description>
+<modelVersion>4.0.0</modelVersion>
+<!-- Web模块相关依赖 -->
+<!--补充一个重要的知识点，一直以来都没意识到：依赖不写版本号的原因是parent标签继承的父项目依赖已经默认给出-->
+<dependencies>
+    <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger2</artifactId>
+        <version>2.7.0</version>
+    </dependency>
+    <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger-ui</artifactId>
+        <version>2.7.0</version>
+    </dependency>
+</dependencies>
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+        </plugin>
+    </plugins>
+</build>
+
+</project>

@@ -1,4 +1,5 @@
 package com.multimodule.redisconfig;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -12,7 +13,7 @@ import org.springframework.util.CollectionUtils;
  * 直接用RedisTemplate操作Redis，需要很多行代码，因此直接封装好一个RedisUtils，这样写代码更方便点。这个RedisUtils交给Spring容器实例化，使用时直接注解注入。
  */
 @Component
-public final class RedisUtils {
+public final class RedisUtils{
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
     // ==========================================================common=========================================================
